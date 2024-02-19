@@ -18,19 +18,23 @@ Another artificial workaround for this was replaying the rosbag from the beginni
 
 ### Monocular dataset issues - Loop Closure
 In the case of the monocular camera, we faced challenges achieving loop closure due to issues such as z-drift, incorrect feature detection, and dynamic objects being mistaken for stationary features. With the stereo camera dataset, although good turns were obtained, loop closure remained elusive.
+
 <img width="577" alt="image" src="https://github.com/PanchalM19/Visual-SLAM-using-ORBSLAM2/assets/115374409/e0bf20ac-ae9c-47cf-b881-bad0f706cda1">
 <img width="577" alt="image" src="https://github.com/PanchalM19/Visual-SLAM-using-ORBSLAM2/assets/115374409/3c6c8397-4891-4772-a06c-5c6de29b4f16">
 
 ### Stereo dataset issues
 For the stereo dataset, we observed some issues when the NUANCE car was moving along a long, straight road. It is likely because the ORBSLAM2 algorithm is not completely scale invariant. When features far away become closer as the car approaches, the features may not be tracked perfectly. This effect was mitigated by increasing the scale factor (from 1.2 to 1.5) and number of scale levels (from 8 to 15), which increases robustness with respect to scale.
+
 <img width="546" alt="image" src="https://github.com/PanchalM19/Visual-SLAM-using-ORBSLAM2/assets/115374409/a273d90f-9b2a-4151-951a-71d411840717">
 
 ### Robustness Issues
 ORBSLAM2 exhibited non-deterministic behavior, producing different maps/trajectories or failing altogether when run with the same parameters on a given dataset. We observed that rerunning the rosbag without restarting the algorithm often yielded better performance, though this relocalization was artificially induced.
+
 <img width="375" alt="image" src="https://github.com/PanchalM19/Visual-SLAM-using-ORBSLAM2/assets/115374409/18064b9b-2b8d-4194-8a09-d2b426da8b9a">
 
 ### GPS Truth
 The trajectory from the ORBSLAM2 run was exported in the TUM format and compared to the GPS data, which served as the ground truth. However, despite being one of the best runs, significant drift and scale issues were observed. Scaling the ORBSLAM2 trajectory by a factor of 50 was necessary for alignment, and loop closure was not achieved.
+
 <img width="445" alt="image" src="https://github.com/PanchalM19/Visual-SLAM-using-ORBSLAM2/assets/115374409/dc9142f5-319f-4f30-957e-3f0415beb540">
 
 ## Areas for Improvement
